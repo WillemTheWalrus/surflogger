@@ -1,0 +1,16 @@
+extends layout
+
+block links
+	link(href='/stylesheets/index.css' rel='stylesheet' type='text/css')
+
+block content
+	div.row
+		div.login-panel
+			form
+				div.form-group
+					label(for='usernameinput') Username:
+					input#usernameinput(type='text' name='username')
+				div.form-group
+					label(for='passwordinput') Password:
+					input#passwordinput(type='password' name='password')
+				button.btn.btn-primary(type='submit') Log In
