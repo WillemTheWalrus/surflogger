@@ -1,0 +1,21 @@
+extends layout
+
+
+block content
+	div.row
+		h1 Make a report
+	
+	div.row
+		form(method='POST' action='/home')
+			label(for='timeinput') What time did you surf at?
+			input#timeinput(type='time' name='timein')
+			
+			label(for='rating') How good was it?
+			select
+				option(value='Firing') Firing
+				option(value='Good') Good
+				option(value='Decent') Decent
+				option(value='Mediocre') Mediocre
+				option(value='Bad') Bad
+				option(value='Shit') Absolute Shit
+			input.btn.btn-primary(type='submit')

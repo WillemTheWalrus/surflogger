@@ -6,11 +6,11 @@ block links
 block content
 	div.row
 		div.login-panel
-			form
+			form(method='POST' action='/')
 				div.form-group
 					label(for='usernameinput') Username:
 					input#usernameinput(type='text' name='username')
 				div.form-group
 					label(for='passwordinput') Password:
 					input#passwordinput(type='password' name='password')
-				button.btn.btn-primary(type='submit') Log In
+				input.btn.btn-primary(type='submit')  
