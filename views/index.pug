@@ -6,7 +6,7 @@ block links
 block content
 	div.row
 		div.login-panel
-			form(method='POST' action='/')
+			form(method='POST' action='/home')
 				div.form-group
 					label(for='usernameinput') Username:
 					input#usernameinput(type='text' name='username')
@@ -14,3 +14,6 @@ block content
 					label(for='passwordinput') Password:
 					input#passwordinput(type='password' name='password')
 				input.btn.btn-primary(type='submit')  
+			p Dont have an account already? 
+				a(href='/createAccount') Create one
+			

@@ -8,12 +8,17 @@ router.get('/', function(req, res, next) {
 });
 
 
+router.get('/createAccount', function(req, res, next) {
+	res.render('createAccount');
+});
+
 router.get('/home', function(req, res, next) {
 	res.render('home');
 });
 
 router.post('/home', function(req, res, next) {
-	res.render('hello world!');
+	//in the future redirect back to home if the login info is incorrect
+	res.render('home');
 });
 
 module.exports = router;

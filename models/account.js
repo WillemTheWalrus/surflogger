@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
+var Group = require('./group');
 
 var accountSchema = new Schema({
 	email: String,
 	admin: Boolean,
 	username: String, 
 	password: String,
-	groups: [Schema.Types.ObjectId]
+	groups: [{Schema.Types.ObjectId, ref: "Group"}]
 });
 
-accountModel = mongoose.model('accountModel', accountSchema);
+var Account = mongoose.model('Account', accountSchema);
 
-module.exports = accountModel;
+module.exports = Account;

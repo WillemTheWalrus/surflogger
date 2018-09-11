@@ -4,20 +4,23 @@ extends layout
 block content
 	div.row
 		
-	//the follwing searchbar was taken from dkstudio on bootsnip
-	//here is the link to the page where to code was taken from: https://bootsnipp.com/snippets/featured/bootstrap-4-search-bar
+		//the follwing searchbar was taken from dkstudio on bootsnip
+		//here is the link to the page where to code was taken from: https://bootsnipp.com/snippets/featured/bootstrap-4-search-bar
+
 		div.col-12.col-md-10.col-lg-8
 			form.card.card-sm
-				div.col-auto
-					i.fas.fa-search.h4.text-body
-				div.col
-					input.form-control.form-control-lg.form-control-borderless(type='search' placeholder='Search for groups')
+				div.card-body.row.no-gutters.align-items-center
+					div.col-auto
+						i.fas.fa-search.h4.text-body
+					div.col
+						input.form-control.form-control-lg.form-control-borderless(type='search' placeholder='Search for groups')
 
-				div.col-auto
-					button.btn.btn-lg.btn-success(type='submit') Search
+					div.col-auto
+						button.btn.btn-lg.btn-success(type='submit') Search
 	div.row
 		h1 Your Groups
 	
 	div.row
-			
+		p list of groups will go here. The following is a group test link
+			a(href='/groups/pboys') Pboys
 
