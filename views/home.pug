@@ -3,19 +3,21 @@ extends layout
 
 block content
 	div.row
-		h1 Make a report
+		
+	//the follwing searchbar was taken from dkstudio on bootsnip
+	//here is the link to the page where to code was taken from: https://bootsnipp.com/snippets/featured/bootstrap-4-search-bar
+		div.col-12.col-md-10.col-lg-8
+			form.card.card-sm
+				div.col-auto
+					i.fas.fa-search.h4.text-body
+				div.col
+					input.form-control.form-control-lg.form-control-borderless(type='search' placeholder='Search for groups')
+
+				div.col-auto
+					button.btn.btn-lg.btn-success(type='submit') Search
+	div.row
+		h1 Your Groups
 	
 	div.row
-		form(method='POST' action='/home')
-			label(for='timeinput') What time did you surf at?
-			input#timeinput(type='time' name='timein')
 			
-			label(for='rating') How good was it?
-			select
-				option(value='Firing') Firing
-				option(value='Good') Good
-				option(value='Decent') Decent
-				option(value='Mediocre') Mediocre
-				option(value='Bad') Bad
-				option(value='Shit') Absolute Shit
-			input.btn.btn-primary(type='submit')
+
