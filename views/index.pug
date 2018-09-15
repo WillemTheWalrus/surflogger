@@ -3,6 +3,12 @@ extends layout
 block links
 	link(href='/stylesheets/index.css' rel='stylesheet' type='text/css')
 
+if(locals.error)
+	block errors
+		div.alert.alert-danger
+			p= error
+
+
 block content
 	div.row
 		div.login-panel
@@ -14,6 +20,6 @@ block content
 					label(for='passwordinput') Password:
 					input#passwordinput(type='password' name='password')
 				input.btn.btn-primary(type='submit')  
-			p Dont have an account already? 
-				a(href='/createAccount') Create one
+				p Dont have an account already? 
+					a(href='/createAccount') Create one
 			

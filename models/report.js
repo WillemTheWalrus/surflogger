@@ -4,8 +4,8 @@ var Group = require('./group');
 
 var Schema = mongoose.Schema;
 var reportSchema = new Schema({
-	submittedBy: [{Schema.Types.ObjectId, ref: 'Account'}],
-	belongsTo: [{Schema.Types.ObjectId, ref: 'Group'}],
+	submittedBy: [{type: Schema.Types.ObjectId, ref: 'Account'}],
+	belongsTo: [{type: Schema.Types.ObjectId, ref: 'Group'}],
 	submittedOn: Date,
 	WVHT: Number,
 	SwH: Number,
@@ -15,7 +15,7 @@ var reportSchema = new Schema({
 	WWP: Number, 
 	WWD: String,
 	STEEPNESS: String,
-	APD: Number
+	APD: Number,
 	WDIR: String,
 	WSPD: Number,
 	GST: Number

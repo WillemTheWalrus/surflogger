@@ -5,8 +5,8 @@ var Report = require('./report');
 
 var groupSchema = new Schema({
 	name: String,
-	members: [{Schema.Types.ObjectId, ref: "Account"}],
-	reports: [{Schema.Types.ObjectId, ref: "Report"}],
+	members: [{type: Schema.Types.ObjectId, ref: "Account"}],
+	reports: [{type: Schema.Types.ObjectId, ref: "Report"}],
 	password: String
 });
 

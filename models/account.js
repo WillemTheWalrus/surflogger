@@ -8,7 +8,7 @@ var accountSchema = new Schema({
 	admin: Boolean,
 	username: String, 
 	password: String,
-	groups: [{Schema.Types.ObjectId, ref: "Group"}]
+	groups: [{type: Schema.Types.ObjectId, ref: "Group"}]
 });
 
 var Account = mongoose.model('Account', accountSchema);
