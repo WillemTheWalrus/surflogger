@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var Group = require('./group');
 
 var accountSchema = new Schema({
+
 	email: String,
 	admin: Boolean,
 	username: String, 

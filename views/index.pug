@@ -3,12 +3,6 @@ extends layout
 block links
 	link(href='/stylesheets/index.css' rel='stylesheet' type='text/css')
 
-if(locals.error)
-	block errors
-		div.alert.alert-danger
-			p= error
-
-
 block content
 	div.row
 		div.login-panel

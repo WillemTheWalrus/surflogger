@@ -19,14 +19,25 @@ html
 		div.container-fluid
 			
 			div.row
-				block error
-			div.row
-				block success
-			div.row
-				block info
-			div.row
-				block warning
+			- if(typeof(errors) !== 'undefined') {
+				div.alert.alert-error
+					p= errors
+			- }
 
+			div.row
+			- if(typeof(success) !== 'undefined') {
+				div.alert.alert-success
+					p= sucess
+			- }
+
+			div.row
+			- if(typeof(info) !== 'undefined') {
+				div.alert.alert-info
+					p= info
+			- }
+
+				
+				
 		div.container
 				
 			block content
