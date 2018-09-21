@@ -18,7 +18,7 @@ exports.login_auth = function(req, res, next) {
 				//Everytime we go to a new page after logging in we will check to make sure the 
 				//session id in our url matches the stored session ID in our cookie
 				
-				var sessionID = Math.floor(Math.random()*10000000)+1);
+				var sessionID = Math.floor((Math.random()*10000000)+1);
 				var cookieName = req.body.username + '::session';
 				
 				res.cookie(cookieName, sessionID, {expire: 360000 + Date.now()});
@@ -38,7 +38,8 @@ exports.login_auth = function(req, res, next) {
 
 exports.render_home = function(req,res,next) {
 
-	req.cookies
+}
+
 
 exports.account_create = function(req, res, next) {
 

@@ -8,6 +8,19 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var groupRouter = require('./routes/groups');
 var app = express();
+var session = require('express-session');
+var morgan = require('morgan');
+
+
+//set up session requirements
+app.use(morgan);
+app.use(session({
+	name: 'server-session-cookie-id',
+	secret: 'I really like the spice girls',
+	saveUninitialized: true,
+	resave: true,
+}));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
