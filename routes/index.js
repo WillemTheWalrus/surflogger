@@ -10,18 +10,13 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/createAccount', function(req, res, next) {
-	res.render('createAccount');
-});
 
-router.get('/home', function(req, res, next) {
-	res.render('home');
-});
-
+//handle login
 router.post('/home',accountController.login_auth);
 
+//handle account creation
+router.get('/createAccount', accountController.account_create_page);
 router.post('/createAccount', accountController.account_create);
 
-	//in the future redirect back to home if the login info is incorrect
 
 module.exports = router;

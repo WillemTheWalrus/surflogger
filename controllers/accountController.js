@@ -1,5 +1,6 @@
 var Account = require('../models/account');
 var db = require('../dbconnect');
+var session = require('express-session');
 const {body, validationResult} = require('express-validator/check');
 const { sanitizeBody } = require('express-validator');
 
@@ -14,16 +15,13 @@ exports.login_auth = function(req, res, next) {
 		else{
 			if(req.body.password == results.password){
 
-				//create a random number as our session ID and store it in a cookie
-				//Everytime we go to a new page after logging in we will check to make sure the 
-				//session id in our url matches the stored session ID in our cookie
-				
-				var sessionID = Math.floor((Math.random()*10000000)+1);
-				var cookieName = req.body.username + '::session';
-				
-				res.cookie(cookieName, sessionID, {expire: 360000 + Date.now()});
+				//log session id
+				console.log(req.session);
 
-				
+				//let user login to home page
+				var sessionData = req.session
+				sessionData.username  = req.body.username;
+				console.log(sessionData.username);
 
 				
 			}
@@ -40,7 +38,9 @@ exports.render_home = function(req,res,next) {
 
 }
 
-
+exports.account_create_page = function(req, res, next) {
+	res.render('createAccount');
+}
 exports.account_create = function(req, res, next) {
 
 	var postUsername = req.body.username;

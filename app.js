@@ -9,18 +9,13 @@ var usersRouter = require('./routes/users');
 var groupRouter = require('./routes/groups');
 var app = express();
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var morgan = require('morgan');
+var db = require('./config/dbconnect');
+var session = require('express-session');
 
 
-//set up session requirements
-app.use(morgan);
-app.use(session({
-	name: 'server-session-cookie-id',
-	secret: 'I really like the spice girls',
-	saveUninitialized: true,
-	resave: true,
-}));
-
+app.js(session({secret:"I really like frank ocean"}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
