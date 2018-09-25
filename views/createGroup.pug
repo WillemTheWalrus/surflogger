@@ -1,0 +1,19 @@
+extends layout
+
+block content
+	div.row
+		h1 Create a group
+		form(action='/groupCreate' method='POST' name='createForm' )
+			div.form-group
+				label(for='groupName') Group Name: 
+				input#groupName(type='text' name='groupName')
+			div.form-group
+				label(for='description') Describe your group:
+				input#description(type='text' name='description')
+			div.form-group
+				label(for='groupPassword') Password
+				input#groupPassword(type='password' name='groupPassword')
+			div.form-group
+				label(for='groupValidatePassword') Retype Password 
+				input#groupValidatePassword(type='password' name='groupValidatePassword')
+

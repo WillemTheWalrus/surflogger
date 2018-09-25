@@ -4,9 +4,6 @@ var session = require('express-session');
 const {body, validationResult} = require('express-validator/check');
 const { sanitizeBody } = require('express-validator');
 
-
-
-
 exports.login_auth = function(req, res, next) {
 	Account.findOne({'username' : req.body.username}, 'username password' , function(err, results){
 		if(err){
@@ -22,6 +19,12 @@ exports.login_auth = function(req, res, next) {
 				var sessionData = req.session
 				sessionData.username  = req.body.username;
 				console.log(sessionData.username);
+				res.render('home', {username: sessionData.username})
+
+				//store the user object Id for keeping track of what they do in their session
+				//this will be used if they create a new group or report
+				sessionData.userID = results._id;	
+				console.log(sessionData.userID);
 
 				
 			}

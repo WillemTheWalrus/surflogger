@@ -15,7 +15,7 @@ var db = require('./config/dbconnect');
 var session = require('express-session');
 
 
-app.js(session({secret:"I really like frank ocean"}));
+app.use(session({secret:"I really like frank ocean"}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

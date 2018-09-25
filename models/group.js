@@ -5,9 +5,11 @@ var Report = require('./report');
 
 var groupSchema = new Schema({
 	name: String,
+	description: String,
 	members: [{type: Schema.Types.ObjectId, ref: "Account"}],
 	reports: [{type: Schema.Types.ObjectId, ref: "Report"}],
-	password: String
+	password: String,
+	admin: {type: Schema.Types.ObjectId, ref:"Account"}
 });
 
 var Group = mongoose.model('Group', groupSchema);

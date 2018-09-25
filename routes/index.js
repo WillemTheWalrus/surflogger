@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var accountController = require('../controllers/accountController');
+var groupController = require('../controllers/groupController');
 
 
 /* GET home page. */
@@ -17,6 +18,8 @@ router.post('/home',accountController.login_auth);
 //handle account creation
 router.get('/createAccount', accountController.account_create_page);
 router.post('/createAccount', accountController.account_create);
+
+router.get('/createGroup', groupController.group_create_page);
 
 
 module.exports = router;
