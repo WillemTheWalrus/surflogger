@@ -20,6 +20,8 @@ router.get('/createAccount', accountController.account_create_page);
 router.post('/createAccount', accountController.account_create);
 
 router.get('/createGroup', groupController.group_create_page);
+router.post('/createGroup', groupController.group_create);
+
 
 
 module.exports = router;

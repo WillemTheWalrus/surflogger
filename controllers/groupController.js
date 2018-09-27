@@ -10,16 +10,25 @@ exports.group_create = function(req, res, next) {
 	var Description = req.body.description;
 	var password = req.body.groupPassword;
 	var passwordValidate = req.body.groupValidatePassword;
+	
+	if(password == passwordValidate){
+		var groupObject = new Group({name: groupName, description: Description, password: passwordValidate});
+		groupObject.save(function(err) {
+			if(err){
+				console.log('save error');
+				res.render('createGroup', {errors: err});
+			}
+			else {
+				console.log('rendering home');
+				res.render('home', {success: 'Group created successfully'});
+			}
+		});
+	}
+	else{
+		console.log('passwords dont match');
+		res.render('createGroup', {errors: 'passwords do not match'});
+	}
 
-	var groupObject = new Group({name: groupName, description: Description, password: passwordValidate});
-	groupObject.save(function(err) {
-		if(err){
-			res.render('createGroup', {errors: err});
-		}
-		else {
-			res.render('home', {success: 'Group created successfully'});
-		}
-	});
 }
 
 
