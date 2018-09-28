@@ -9,7 +9,7 @@ var groupSchema = new Schema({
 	members: [{type: Schema.Types.ObjectId, ref: "Account"}],
 	reports: [{type: Schema.Types.ObjectId, ref: "Report"}],
 	password: String,
-	admin: {type: Schema.Types.ObjectId, ref:"Account"}
+	admin: Schema.Types.ObjectId 
 });
 
 var Group = mongoose.model('Group', groupSchema);

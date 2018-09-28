@@ -13,11 +13,46 @@ var MongoStore = require('connect-mongo')(session);
 var morgan = require('morgan');
 var db = require('./config/dbconnect');
 var session = require('express-session');
+var uuid = require('uuid/v4');
+var FileStore = require('session-file-store')(session);
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+var accountController = require('./controllers/accountController');
 
 
-app.use(session({secret:"I really like frank ocean"}));
 
-// view engine setup
+app.use(session({
+	genid: (req) => { 
+		console.log('Inside the session middleware');
+		console.log(req.sessionID);
+		return uuid();
+	},
+	store: new FileStore(),
+	resave: false,
+	saveUninitialized: true,
+	secret:"I really like frank ocean",
+	}));
+
+//intialize passport session
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser( function(user, done) {
+	var sessionUser = {_id : user._id, username : user.username};
+	console.log('serilizing: ' + user.username);	
+	done(null, sessionUser);
+});
+
+passport.deserializeUser( function(sessionUser, done) {
+	console.log('deserializing: ' + sessionUser.username);
+	done(null, sessionUser);
+});
+
+
+//declare login method for passport
+passport.use(accountController.passport_login);
+
+//view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 

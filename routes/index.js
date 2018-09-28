@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var accountController = require('../controllers/accountController');
 var groupController = require('../controllers/groupController');
-
+var passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -13,8 +13,12 @@ router.get('/', function(req, res, next) {
 
 
 //handle login
-router.post('/home',accountController.login_auth);
-
+router.post('/', 
+	passport.authenticate('local', { successRedirect: '/home',
+					 failureRedirect: '/',
+					 failureFlash: true })
+);
+router.get('/home', accountController.render_home);
 //handle account creation
 router.get('/createAccount', accountController.account_create_page);
 router.post('/createAccount', accountController.account_create);

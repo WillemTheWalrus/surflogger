@@ -3,7 +3,8 @@ var db = require('../dbconnect');
 var session = require('express-session');
 const {body, validationResult} = require('express-validator/check');
 const { sanitizeBody } = require('express-validator');
-
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 exports.login_auth = function(req, res, next) {
 	Account.findOne({'username' : req.body.username}, 'username password' , function(err, results){
 		if(err){
@@ -37,8 +38,29 @@ exports.login_auth = function(req, res, next) {
 
 }
 
-exports.render_home = function(req,res,next) {
 
+//login using the passport middleware
+//define a new LocalStrategy for login authorixation
+//code taken from: http://www.passportjs.org/docs/username-password/
+exports.passport_login = new LocalStrategy( function(username, password, done) {
+
+	Account.findOne({'username' :username }, 'username password' , function(err, results){
+		if(err){
+			return done(err);
+		}
+		if(!results) {
+			return done(null, false, {message : 'Username not found'});
+		}
+		if(results.password != password){
+			return done(null, false, { message: 'Incorrect Password'});
+		}
+		return done(null, results);
+	});
+});
+
+
+exports.render_home = function(req,res,next) {
+	res.render('home', {username: req.user.username});
 }
 
 exports.account_create_page = function(req, res, next) {
