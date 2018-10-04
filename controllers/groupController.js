@@ -21,7 +21,8 @@ exports.group_create = function(req, res, next) {
 			}
 			else {
 				console.log('rendering home');
-				res.render('home', {success: 'Group created successfully'});
+				req.user.success = 'group created!';
+				res.redirect('/home');
 			}
 		});
 	}

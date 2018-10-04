@@ -20,6 +20,11 @@ const LocalStrategy = require('passport-local').Strategy;
 var accountController = require('./controllers/accountController');
 
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
 	genid: (req) => { 
@@ -28,7 +33,6 @@ app.use(session({
 		return uuid();
 	},
 	store: new FileStore(),
-	resave: false,
 	saveUninitialized: true,
 	secret:"I really like frank ocean",
 	}));
@@ -45,7 +49,8 @@ passport.serializeUser( function(user, done) {
 
 passport.deserializeUser( function(sessionUser, done) {
 	console.log('deserializing: ' + sessionUser.username);
-	done(null, sessionUser);
+	var user = sessionUser;
+	done(null, user);
 });
 
 
@@ -56,11 +61,6 @@ passport.use(accountController.passport_login);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

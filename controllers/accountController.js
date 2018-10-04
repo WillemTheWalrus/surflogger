@@ -60,7 +60,14 @@ exports.passport_login = new LocalStrategy( function(username, password, done) {
 
 
 exports.render_home = function(req,res,next) {
-	res.render('home', {username: req.user.username});
+	console.log('home page username log: '+ req.user.username);
+	if(req.user.success != null){
+		res.render('home', {username: req.user.username});
+	}
+	else{
+		res.render('home', {username:req.user.username, success: req.user.success});
+		req.user.success = null;
+	}
 }
 
 exports.account_create_page = function(req, res, next) {
@@ -83,7 +90,9 @@ exports.account_create = function(req, res, next) {
 			res.send(err);
 		}
 		else{
-			res.render('index', { success:'Account created successfully!'});
+			var success = 'Account created successfully!';
+			req.user.success = success;
+			res.redirect('/');
 		}
 	});
 	
