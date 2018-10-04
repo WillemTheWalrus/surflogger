@@ -3,20 +3,12 @@ extends layout
 
 block content
 	div.row
-		
-		//the follwing searchbar was taken from dkstudio on bootsnip
-		//here is the link to the page where to code was taken from: https://bootsnipp.com/snippets/featured/bootstrap-4-search-bar
+		form( action='/groups/search' method='POST')
+			div.form-group
+				div.active-cyan-3.active-cyan-4.mb-4
+					input.form-control(type='text' placeholder='Search')
+				input(type='submit')Submit
 
-		div.col-12.col-md-10.col-lg-8
-			form.card.card-sm
-				div.card-body.row.no-gutters.align-items-center
-					div.col-auto
-						i.fas.fa-search.h4.text-body
-					div.col
-						input.form-control.form-control-lg.form-control-borderless(type='search' placeholder='Search for groups')
-
-					div.col-auto
-						button.btn.btn-lg.btn-success(type='submit') Search
 	div.row
 		h1 Welcome #{username}	
 	div.row
