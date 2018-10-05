@@ -28,12 +28,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
 	genid: (req) => { 
-		console.log('Inside the session middleware');
-		console.log(req.sessionID);
 		return uuid();
 	},
 	store: new FileStore(),
-	saveUninitialized: true,
+	saveUninitialized: true, 
 	secret:"I really like frank ocean",
 	}));
 
@@ -42,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser( function(user, done) {
+
 	var sessionUser = {_id : user._id, username : user.username};
 	console.log('serilizing: ' + user.username);	
 	done(null, sessionUser);
