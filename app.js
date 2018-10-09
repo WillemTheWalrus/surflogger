@@ -27,12 +27,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
+	cookie: {maxAge: 60*60*1000},
 	genid: (req) => { 
 		return uuid();
 	},
 	store: new FileStore(),
 	saveUninitialized: true, 
 	secret:"I really like frank ocean",
+
 	}));
 
 //intialize passport session
