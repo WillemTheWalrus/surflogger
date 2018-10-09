@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 router.post('/', 
 	passport.authenticate('local', { successRedirect: '/home',
 					 failureRedirect: '/',
-					 failureFlash: true })
+					})
 );
 router.get('/home', accountController.render_home);
 //handle account creation

@@ -1,5 +1,7 @@
 var Group = require('../models/group');
 var session = require('express-session');
+var Account = require('../models/account');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 //render the group creation form
 exports.group_create_page = function(req, res, next) {
@@ -14,17 +16,40 @@ exports.group_create = function(req, res, next) {
 	var passwordValidate = req.body.groupValidatePassword;
 	console.log('admin of group: ' + req.user.username);	
 	if(password == passwordValidate){
-		console.log(req.session.userID);
-		var groupObject = new Group({name: groupName, description: Description, password: passwordValidate, admin: req.user._id});
+		
+		//create a new group object and save it
+		var groupObject = new Group({name: groupName, description: Description, password: passwordValidate, admin: req.user._id, members: [req.user._id],});
 		groupObject.save(function(err) {
+			//if there is an error, re render and display the error
 			if(err){
 				console.log('save error');
 				res.render('createGroup', {errors: err});
 			}
+			//if succesful, save the group the to the user's group list
 			else {
-				console.log('rendering home');
-				req.user.success = 'group created!';
-				res.redirect('/home');
+				console.log('group saving...');
+				Account.findOne({username: req.user.username }, function( err, doc) {
+					if(err){
+						console.log(err);	
+						res.render('createGroup', {errors: err});
+					}
+					else{
+						console.log('account found');
+
+
+						//if the account is found, update ut
+						doc.groups.push(groupObject._id);
+						doc.save(function (err) {
+							if(err){
+								console.log('group not added to account: ' + err);
+							}});
+
+						console.log('rendering home');
+						req.user.success = 'group created!';
+						res.redirect('/home');
+					}
+				});
+					
 			}
 		});
 	}
