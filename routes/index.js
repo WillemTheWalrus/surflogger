@@ -10,14 +10,24 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'SurfLogger' });
 });
 
+router.get('/err/:error', function(req, res, next) {
+	if(req.params.error == 'pw'){
+		res.render('index', {errors: 'invalid password'});
+	}
+	else{
+		res.render('index', {errors: req.params.error});
+	}
 
+});
 
 //handle login
 router.post('/', 
 	passport.authenticate('local', { successRedirect: '/home',
-					 failureRedirect: '/',
+					 failureRedirect: '/err/pw',
 					})
 );
+
+
 router.get('/home', accountController.render_home);
 //handle account creation
 router.get('/createAccount', accountController.account_create_page);

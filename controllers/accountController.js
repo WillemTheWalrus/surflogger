@@ -43,21 +43,31 @@ exports.account_create = function(req, res, next) {
 
 	//check to make sure the username is unique
 	
-
-
-	var accountObject = new Account({ username: postUsername, password: postPassword});
-
-	accountObject.save(function(err) {
+	Account.find({username: postUsername} , function( err, account) {
 		if(err){
-			res.send(err);
+			console.log(err);
 		}
 		else{
-		
-			res.redirect('/');
+			//if the username is taken, rerender creation page with error
+			if(account.length > 0){
+				res.render('createAccount', {errors: 'username already taken'});
+			}
+			else{
+				//if the username is unique, create the account and save it
+				var accountObject = new Account({ username: postUsername, password: postPassword});
+
+				accountObject.save(function(err) {
+					if(err){
+						res.send(err);
+					}
+					else{
+						//redirect back to login page if save is succesful
+						res.redirect('/');
+					}
+				});
+			}
 		}
 	});
-	
-
 };
 
 
