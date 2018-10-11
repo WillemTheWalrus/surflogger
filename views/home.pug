@@ -1,13 +1,14 @@
 extends layout
 
+block links
+	script(src='/javascripts/searchQuery.js')
 
 block content
 	div.row
-		form( action='/groups/search' method='POST')
-			div.form-group
-				div.active-cyan-3.active-cyan-4.mb-4
-					input.form-control(type='text' placeholder='Search')
-				input(type='submit') 
+		div.active-cyan-3.active-cyan-4.mb-4
+			input#searchBar.form-control(type='text' placeholder='Search'   )
+		div#groupQuery
+			p#test test
 	div.row
 		h1 Welcome #{username}	
 	div.row

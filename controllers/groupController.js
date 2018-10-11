@@ -37,7 +37,7 @@ exports.group_create = function(req, res, next) {
 						console.log('account found');
 
 
-						//if the account is found, update ut
+						//if the account is found, update it
 						doc.groups.push(groupObject._id);
 						doc.save(function (err) {
 							if(err){
@@ -59,5 +59,25 @@ exports.group_create = function(req, res, next) {
 	}
 
 }
+
+exports.groupQuery = function(req, res, next) {
+	Group.find({username: req.groupName}, function(err, docs){
+		if(err){
+			res.json({message: err});
+		}
+		else{
+			var jsonResponse = {groups : []};
+			console.log(docs.length);
+			var i;
+			for(i = 0; i < docs.length; i++){
+				jsonResponse['groups'].push(docs[i].name);
+			}
+			res.json(jsonResponse);
+		}
+
+	});
+}
+
+
 
 
