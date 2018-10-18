@@ -60,6 +60,12 @@ exports.group_create = function(req, res, next) {
 
 }
 
+/*
+ *
+ * This is my dynamic query function, it originally was queried everytime a user pressed a key down but
+ * that could be very server intensive. 
+ * I have decided to revisit the dynamic group query once other more important parts of the site have
+ * been built out first
 exports.groupQuery = function(req, res, next) {
 	console.log("search query: " + req.body.groupName);
 	Group.find({name: {$regex: ".*"+ req.body.groupName + ".*"}}, function(err, docs){
@@ -81,7 +87,28 @@ exports.groupQuery = function(req, res, next) {
 
 	});
 }
+**/
 
+/*
+ * Renders the group results page after querying the db for groups
+ * matching the name that was submitted from the group search bar
+ */
+exports.groupSearch = function(req, res, next) {
+	var userGroupSearch = req.body.groupInput;
 
+	Group.find({name: {$regex: ".*"+ userGroupSearch + ".*"}}, function(err, docs){
 
+		if(err){
+			res.send('error: ' + err);
+		}
+		else{
+			res.render('searchGroupResults', {results: docs});
+		}
+
+	});
+}
+
+exports.groupHomePage = function(req, res, next) {
+	res.render('groupHome', {groupName : req.params.groupName});
+}
 

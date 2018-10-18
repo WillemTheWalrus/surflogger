@@ -8,8 +8,11 @@ block links
 
 block content
 	div.row
-		div.active-cyan-3.active-cyan-4.mb-4
-			input#searchBar.form-control(type='text' placeholder='Search'   )
+		form(action='/groups/groupSearch' method='POST' name='groupSearchForm')
+			div.form-group
+				div.active-cyan-3.active-cyan-4.mb-4
+					input#searchBar.form-control(type='text' placeholder='Search for a Group' name='groupInput'   )
+				input.btn.btn-primary(type='submit')
 	div.row
 		p#test
 	div.row

@@ -2,9 +2,16 @@ var express = require('express');
 var router = express.Router();
 var groupController = require('../controllers/groupController');
 
-	router.get('/:groupName' , function(req, res, next) {
-		res.render('groupHome', {groupName: req.params.groupName} );
-	});
+//renders the group home page
+router.get('/groupPage/:groupName' , groupController.groupHomePage);
 	
-	router.post('/groupQuery', groupController.groupQuery);
+/*
+ * Save this in case I decide to do dynamic group queries
+router.post('/groupQuery', groupController.groupQuery);
+**/
+
+//Sends the users to the search result page upon submitting a search in the group search bar
+router.post('/groupSearch', groupController.groupSearch);
+
+
 module.exports = router;
