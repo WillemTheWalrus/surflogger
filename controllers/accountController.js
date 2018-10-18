@@ -1,6 +1,7 @@
 var Account = require('../models/account');
 var db = require('../dbconnect');
 var session = require('express-session');
+var Group = require('../models/group');
 const {body, validationResult} = require('express-validator/check');
 const { sanitizeBody } = require('express-validator');
 const passport = require('passport');
@@ -29,7 +30,31 @@ exports.passport_login = new LocalStrategy( function(username, password, done) {
 
 exports.render_home = function(req,res,next) {
 	console.log('home page username log: '+ req.user.username);
-	res.render('home', {username: req.user.username});
+	Group.find({}, function(err, docs){
+		if(err){
+			console.log(err);
+			res.render('home', {username: req.user.username});
+		}
+		else
+		{
+			//check to make sure there are groups in our db
+			if(docs.length > 0){
+				var jsonResponse = {groups: []};
+				var i ;
+				for(i = 0; i < docs.length; i++){
+					jsonResponse['groups'].push(docs[i].name);
+				}
+				res.render('home', {username: req.user.username, groupNames: jsonResponse});
+			}
+			else{
+				//no groups found, render page
+				console.log('no groups found');
+
+				res.render('home', {username: req.user.username, groupNames: 'no groups'});
+
+			}
+		}
+	});
 }
 
 exports.account_create_page = function(req, res, next) {

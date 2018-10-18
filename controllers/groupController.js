@@ -61,18 +61,22 @@ exports.group_create = function(req, res, next) {
 }
 
 exports.groupQuery = function(req, res, next) {
-	Group.find({username: req.groupName}, function(err, docs){
+	console.log("search query: " + req.body.groupName);
+	Group.find({name: {$regex: ".*"+ req.body.groupName + ".*"}}, function(err, docs){
+
 		if(err){
 			res.json({message: err});
 		}
 		else{
-			var jsonResponse = {groups : []};
-			console.log(docs.length);
-			var i;
-			for(i = 0; i < docs.length; i++){
-				jsonResponse['groups'].push(docs[i].name);
+			if(docs.length > 0){
+				var jsonResponse = {groups : []};
+				console.log(docs[0].name);
+				var i;
+				for(i = 0; i < docs.length; i++){
+					jsonResponse['groups'].push(docs[i].name);
+				}
+				res.json(jsonResponse);
 			}
-			res.json(jsonResponse);
 		}
 
 	});
