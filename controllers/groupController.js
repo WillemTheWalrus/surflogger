@@ -18,7 +18,7 @@ exports.group_create = function(req, res, next) {
 	if(password == passwordValidate){
 		
 		//create a new group object and save it
-		var groupObject = new Group({name: groupName, description: Description, password: passwordValidate, admin: req.user._id, members: [req.user._id],});
+		var groupObject = new Group({name: groupName, description: Description, password: passwordValidate, admin: req.user._id,}); 
 		groupObject.save(function(err) {
 			//if there is an error, re render and display the error
 			if(err){

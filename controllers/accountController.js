@@ -29,30 +29,45 @@ exports.passport_login = new LocalStrategy( function(username, password, done) {
 
 
 exports.render_home = function(req,res,next) {
-	console.log('home page username log: '+ req.user.username);
-	Group.find({}, function(err, docs){
+	Account.findOne({username: req.user.username}, function (err, account) {
 		if(err){
-			console.log(err);
-			res.render('home', {username: req.user.username});
+			res.redirect('/err/notfound');
 		}
-		else
-		{
-			//check to make sure there are groups in our db
-			if(docs.length > 0){
-				var jsonResponse = {groups: []};
-				var i ;
-				for(i = 0; i < docs.length; i++){
-					jsonResponse['groups'].push(docs[i].name);
-				}
-				res.render('home', {username: req.user.username, groupNames: jsonResponse});
+		else{
+			//stuff all of the group names into an array
+			/*
+			var groupnames = [];
+			var i;
+			for(i = 0; i < account.groups.length; i++){
+				groupnames[i] = account.groups[i].name;
+			}
+
+			res.render('home', {username: req.user.username, groupNames: groupnames});
+			*/
+			
+			if(account.groups.length < 1){
+				res.render('home', {username: req.user.username, groupNames: ['You are not in any groups yet' ] });
 			}
 			else{
-				//no groups found, render page
-				console.log('no groups found');
-
-				res.render('home', {username: req.user.username, groupNames: 'no groups'});
+				var groupNames = [];
+				Account.findOne({username: req.user.username}).populate('groups' , 'name')
+					.exec(function(err, result){
+						if(err)
+						{
+							res.send(err);
+						}
+						else{
+							var groupnames = [];
+							var i;
+							for(i = 0; i < result.groups.length; i++){
+								groupnames[i] = result.groups[i].name;
+							}
+							res.render('home', {username: req.user.username, groupNames: groupnames});
+						}
+					});
 
 			}
+			
 		}
 	});
 }

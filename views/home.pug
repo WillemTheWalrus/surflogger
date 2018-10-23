@@ -21,8 +21,12 @@ block content
 		h2 Your Groups
 	
 	div.row
-		p list of groups will go here. The following is a group test link
-			a(href='/groups/pboys') Pboys
+		- var n = 0;
+		while n < groupNames.length
+			- var groupLink = '/groups/groupPage/'+ groupNames[n];
+			p.col-md-6= groupNames[n]
+			a.col-md-6.btn.btn-primary(href=groupLink role='button') HomePage
+			- n++;
 	div.row
 		a.btn.btn-primary(href='/createGroup') Create a Group
 
