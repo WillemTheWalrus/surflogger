@@ -24,8 +24,8 @@ block content
 		- var n = 0;
 		while n < groupNames.length
 			- var groupLink = '/groups/groupPage/'+ groupNames[n];
-			p.col-md-6= groupNames[n]
-			a.col-md-6.btn.btn-primary(href=groupLink role='button') HomePage
+			p.col-md-8= groupNames[n]
+			a.col-md-4.btn.btn-primary(href=groupLink role='button') Home Page
 			- n++;
 	div.row
 		a.btn.btn-primary(href='/createGroup') Create a Group

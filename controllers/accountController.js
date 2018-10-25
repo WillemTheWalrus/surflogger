@@ -34,22 +34,15 @@ exports.render_home = function(req,res,next) {
 			res.redirect('/err/notfound');
 		}
 		else{
-			//stuff all of the group names into an array
-			/*
-			var groupnames = [];
-			var i;
-			for(i = 0; i < account.groups.length; i++){
-				groupnames[i] = account.groups[i].name;
-			}
-
-			res.render('home', {username: req.user.username, groupNames: groupnames});
-			*/
-			
+			//If the user is not a part of any groups, display a message	
 			if(account.groups.length < 1){
 				res.render('home', {username: req.user.username, groupNames: ['You are not in any groups yet' ] });
 			}
+			//If the user is a part of groups, show them
 			else{
 				var groupNames = [];
+				//populate the group field for our account object so we can grab the group names
+				//and pass it to our home page as an array to be displayed
 				Account.findOne({username: req.user.username}).populate('groups' , 'name')
 					.exec(function(err, result){
 						if(err)
