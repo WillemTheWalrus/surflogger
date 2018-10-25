@@ -13,5 +13,8 @@ router.post('/groupQuery', groupController.groupQuery);
 //Sends the users to the search result page upon submitting a search in the group search bar
 router.post('/groupSearch', groupController.groupSearch);
 
+router.post('/auth/:groupName', groupController.groupLogin);
+
+router.get('/auth/:groupName', groupController.groupLoginPage);
 
 module.exports = router;

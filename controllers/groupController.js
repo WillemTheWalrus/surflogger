@@ -107,8 +107,64 @@ exports.groupSearch = function(req, res, next) {
 
 	});
 }
-
+/**
+ * If the user is a member of the group, render the home page,
+ * otherwise, redirect them to the group login page
+ */
 exports.groupHomePage = function(req, res, next) {
-	res.render('groupHome', {groupName : req.params.groupName});
+	Account.findOne({ _id: req.user._id} ).populate('groups','name').exec(function(err, result){
+		var isMember = false;
+		var i
+		for( i = 0; i < result.groups.length; i++)
+		{
+			if(result.groups[i].name === req.params.groupName){
+				isMember = true;
+				res.render('groupHome', {groupName : req.params.groupName});
+			}
+		}
+
+		if(!isMember){
+			res.redirect('/groups/auth/'+ req.params.groupName);
+		}
+	});
 }
+
+exports.groupLoginPage = function(req,res,next) {
+	res.render('groupPassword', {groupName: req.params.groupName});
+}
+
+exports.groupLogin = function(req,res,next) {
+
+	var groupName = req.params.groupName;
+	var groupPass = req.body.password;
+
+	Group.findOne({ name: groupName} , function(err, currentGroup){
+
+		if(err){
+			res.send(err);
+		}
+		else{
+			if(currentGroup.password == groupPass){
+				//add the group to the user's list of groups
+				Account.findOne({_id: req.user._id}, function(err, userAccount){
+					userAccount.groups.push(currentGroup);
+					userAccount.save(function(err){
+						if(err){
+							console.log(err);
+						}
+					});
+				});
+
+				//redirect the user to the group home page
+				res.redirect('/groups/groupPage/'+groupName);
+			}
+			else{
+				res.send('incorrect password');
+			}
+		}
+	});
+}
+
+
+
 
