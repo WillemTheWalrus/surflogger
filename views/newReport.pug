@@ -3,15 +3,16 @@ extends layout
 
 block content
 	div.row
-		h1 Make a report
+		h1 Make a report #{groupName}
 	
 	div.row
-		form(method='POST' action='/home')
+		- var postURL = '/reports/' + groupName; 
+		form(method='POST' action=postURL)
 			label(for='timeinput') What time did you surf at?
 			input#timeinput(type='time' name='timein')
 			
 			label(for='rating') How good was it?
-			select
+			select#rating(name='rating')
 				option(value='Firing') Firing
 				option(value='Good') Good
 				option(value='Decent') Decent

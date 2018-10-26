@@ -2,7 +2,8 @@ extends layout
 block links
 
 	link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.1.0/css/all.css' integrity='sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt' crossorigin='anonymous')
-
+	link(rel='stylesheet' href='/stylesheets/groupHome.css' type='text/css')
+	
 block content
 	div.row
 		div.col-12.col-md-10.col-lg-8
@@ -22,5 +23,7 @@ block content
 		p This page will display all contributed reports, a search mechanism for looking up previous reports, and a plus button for making a new report
 
 	div.row
-		- var groupname = groupName
-		a(href='/groups/' + groupname + '/newReport') imagine a plus sign here
+		- var reportURL = '/reports/' + groupName;
+		div#plusSvg
+			a(href=reportURL)
+				img(src='/images/icon-plus-circled-gray.svg')

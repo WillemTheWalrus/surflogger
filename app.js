@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var groupRouter = require('./routes/groups');
 var app = express();
 var session = require('express-session');
@@ -18,6 +17,7 @@ var FileStore = require('session-file-store')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 var accountController = require('./controllers/accountController');
+var reportRouter = require('./routes/reports');
 
 
 app.use(logger('dev'));
@@ -64,8 +64,8 @@ app.set('view engine', 'pug');
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/groups' , groupRouter);
+app.use('/reports', reportRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
