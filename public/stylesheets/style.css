@@ -1,8 +1,13 @@
-body {
+#appContent{
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+#appHeader
+{
+  padding: 30px;
+  background-image: linear-gradient(to bottom right, white, blue);
+}	

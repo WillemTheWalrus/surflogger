@@ -1,5 +1,8 @@
 extends layout
 
+block links
+	script(type='text/javascript' src='/javascripts/moment.js')
+	script(type='text/javascript' src='/javascripts/bootstrap-datetimepicker.min.js')
 
 block content
 	div.row
@@ -8,9 +11,15 @@ block content
 	div.row
 		- var postURL = '/reports/' + groupName; 
 		form(method='POST' action=postURL)
-			label(for='timeinput') What time did you surf at?
-			input#timeinput(type='time' name='timein')
-			
+			div#datetimepicker1.input-group.date
+				label(for='timeinput') What time did you surf at?
+				input.form-control(type='text' name='timein')
+				span.input-group-addon
+					span.glyphicon.glyphicon-calendar
+			script(type='text/javascript').
+				$(function () {
+					$('#datetimepicker1').datetimepicker();
+				});
 			label(for='rating') How good was it?
 			select#rating(name='rating')
 				option(value='Firing') Firing

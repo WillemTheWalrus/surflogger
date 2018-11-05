@@ -1,31 +1,30 @@
 extends layout
 
 block links
-	script var data = !{JSON.stringify(groupNames)}
-	script(src='/javascripts/searchTest.js')
 	link(href='/stylesheets/home.css' rel='stylesheet' type='text/css')
 
 
 block content
 	div.row
-		form(action='/groups/groupSearch' method='POST' name='groupSearchForm')
-			div.form-group
-				div.active-cyan-3.active-cyan-4.mb-4
-					input#searchBar.form-control(type='text' placeholder='Search for a Group' name='groupInput'   )
-				input.btn.btn-primary(type='submit')
-	div.row
-		p#test
-	div.row
-		h1 Welcome #{username}	
+		h1 Welcome #{username}
+		
 	div.row
 		h2 Your Groups
 	
+	div.row.searchGroup
+		form(action='/groups/groupSearch' method='POST' name='groupSearchForm')
+			div.form-group
+				div.active-cyan-3.active-cyan-4.col-10
+					input#searchBar.form-control(type='text' placeholder='Search for a Group' name='groupInput'   )
+				div.col-2
+					input.btn.btn-primary(type='submit')
 	div.row
 		- var n = 0;
 		while n < groupNames.length
 			- var groupLink = '/groups/groupPage/'+ groupNames[n];
 			p.col-md-8= groupNames[n]
-			a.col-md-4.btn.btn-primary(href=groupLink role='button') Home Page
+			div.col-md-4
+				a.btn.btn-primary(href=groupLink role='button') Home Page
 			- n++;
 	div.row
 		a.btn.btn-primary(href='/createGroup') Create a Group

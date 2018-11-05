@@ -1,5 +1,5 @@
 var Account = require('../models/account');
-var db = require('../dbconnect');
+var db = require('../config/dbconnect');
 var session = require('express-session');
 var Group = require('../models/group');
 const {body, validationResult} = require('express-validator/check');
