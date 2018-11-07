@@ -18,3 +18,4 @@ router.post('/auth/:groupName', groupController.groupLogin);
 router.get('/auth/:groupName', groupController.groupLoginPage);
 
 module.exports = router;
+

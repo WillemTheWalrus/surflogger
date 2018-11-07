@@ -19,7 +19,6 @@ const LocalStrategy = require('passport-local').Strategy;
 var accountController = require('./controllers/accountController');
 var reportRouter = require('./routes/reports');
 
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +32,8 @@ app.use(session({
 	},
 	store: new FileStore(),
 	saveUninitialized: true, 
-	secret:"I really like frank ocean",
+    secret:"I really like frank ocean",
+    resave:true,
 
 	}));
 
@@ -43,13 +43,14 @@ app.use(passport.session());
 
 passport.serializeUser( function(user, done) {
 	var sessionUser = {_id : user._id, username : user.username  };
-	console.log('serilizing: ' + user.username);	
+	console.log('serializing: ' + user.username);	
 
 	done(null, sessionUser);
 });
 
 passport.deserializeUser( function(sessionUser, done) {
-	console.log('deserializing: ' + sessionUser.username);
+    console.log('deserializing: ' + sessionUser.username);
+    console.log('id: ' + sessionUser._id);
 	var user = sessionUser;
 	done(null, user);
 });
