@@ -1,6 +1,6 @@
 var Group = require('../models/group');
-var session = require('express-session');
 var Account = require('../models/account');
+var Report = require('../models/report');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 //render the group creation form
@@ -118,8 +118,24 @@ exports.groupHomePage = function(req, res, next) {
 		for( i = 0; i < result.groups.length; i++)
 		{
 			if(result.groups[i].name === req.params.groupName){
-				isMember = true;
-				res.render('groupHome', {groupName : req.params.groupName});
+                isMember = true;
+                console.log(result.groups[i]._id);
+                //find all the reports that were made to the group and send them to the template
+                Report.find({belongsTo: new ObjectId(result.groups[i]._id)}, function(err, reports){
+                    if(err){
+                        console.log(err);
+                    }
+                    else if(reports == null){
+                        return res.render('groupHome', {groupName : req.params.groupName, groupReports: null});
+                    }
+                    else{
+                        console.log(reports);
+                        res.render('groupHome', {groupName : req.params.groupName, groupReports: reports});
+
+                    }
+                });
+
+				
 			}
 		}
 

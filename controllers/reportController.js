@@ -96,42 +96,45 @@ exports.makeReport = function(req, res) {
             }
             else{
                 groupId = group._id;
+                console.log('groupid: '+groupId);
+
+                Report.create({
+             
+                    submittedBy: req.user._id, 
+                    belongsTo: groupId, 
+                    submittedOn: submissionDate,
+                    buoyReportDate: reportDate,
+                    WVHT: waveHeight,
+                    SwH: swellHeight,
+                    SwP: swellPeriod,
+                    SwD: buoyData[10],
+                    WWH: windWaveHeight,
+                    WWP: windWavePeriod,
+                    WWD: buoyData[11],
+                    STEEPNESS: buoyData[12],
+                    APD: parseFloat(buoyData[13]),
+                    MWD: parseInt(buoyData[14]),
+                    location: req.body.location,
+                    rating: req.body.rating
+        
+                }, 
+                function(err, report){
+                    if(err){
+                        console.log(err);
+                    }
+                else{
+                console.log(report);
+                }
+                });
+                
+            
+                var redirectURL = '/groups/groupPage/'+ req.params.groupName;
+                res.redirect(redirectURL);
             }
         });
     
         //save report data in a new report object
-         Report.create({
-             
-            submittedBy: req.user._id, 
-            belongsTo: groupId, 
-            submittedOn: submissionDate,
-            buoyReportDate: reportDate,
-            WVHT: waveHeight,
-            SwH: swellHeight,
-            SwP: swellPeriod,
-            SwD: buoyData[10],
-            WWH: windWaveHeight,
-            WWP: windWavePeriod,
-            WWD: buoyData[11],
-            STEEPNESS: buoyData[12],
-            APD: parseFloat(buoyData[13]),
-            MWD: parseInt(buoyData[14]),
-            location: req.body.location,
-            rating: req.body.rating
-
-        }, 
-        function(err, report){
-            if(err){
-                console.log(err);
-            }
-	    else{
-		console.log(report);
-	    }
-        });
-        
-    
-        var redirectURL = '/groups/groupPage/'+ req.params.groupName;
-        res.redirect(redirectURL);
+         
 
     });
     
