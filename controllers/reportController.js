@@ -13,6 +13,7 @@ exports.makeReportPage = function(req, res){
 }
 
 exports.makeReport = function(req, res) {
+
     
     
     var userTime = req.body.timein;
@@ -48,7 +49,15 @@ exports.makeReport = function(req, res) {
 		
 		
         buoyData = message.split(" ");
+
+	var i = 0;
+	for( i =0; i < buoyData.length; i++){
+        buoyData[i] = buoyData[i].replace(/[^0-9a-zA-Z.]/gi, '');
+       
+	}
+
         console.log(buoyData);
+	    console.log(buoyData[0]);
         var submissionDate = new Date();
         
     
@@ -62,11 +71,13 @@ exports.makeReport = function(req, res) {
         
         //convert from GWT zone to PST (Will still say it is in GWT though)
         reportDate.setHours(reportDate.getHours()-8);
-    
+        console.log(reportDate);
+        
         //convert the height and period data from meters to feet (parse periods to floats)
         var waveHeight = parseFloat(buoyData[5]);
         waveHeight = Math.round((waveHeight*3.28084)*100)/100;
     
+        console.log(waveHeight);
         var swellHeight = parseFloat(buoyData[6]);
         swellHeight = Math.round((swellHeight*3.28084)*100)/100;
     
@@ -113,7 +124,11 @@ exports.makeReport = function(req, res) {
             if(err){
                 console.log(err);
             }
+	    else{
+		console.log(report);
+	    }
         });
+        
     
         var redirectURL = '/groups/groupPage/'+ req.params.groupName;
         res.redirect(redirectURL);
@@ -136,10 +151,6 @@ exports.makeReport = function(req, res) {
    
 		
 		
-	var time = req.body.timein;
-	var rating = req.body.rating;
-	console.log('report time: ' + time);
-	console.log('report rating: ' + rating);
 
 }
 	
