@@ -24,17 +24,19 @@ block content
 
     div.row
         div.col-md-1
-            - var reportURL = '/reports/' + groupName;
+            - var reportURL = '/reports/newReport/' + groupName;
             div#plusSvg
                 a(href=reportURL)
                     img(src='/images/icon-plus-circled-gray.svg')
-        div.col
-            - var i = 0;
-            - var jsonSize = groupReports.length;
-            while i < jsonSize
-                div.row
-                    div.col
-                        p= groupReports[i].location 
-                    div.col 
-                        p= groupReports[i].rating 
-                - i++;
+    - var i = 0;
+    - var jsonSize = groupReports.length;
+    while i < jsonSize
+        - var reportURL = '/reports/'+groupReports[i]._id;
+        div.row-fluid
+            div.col-sm-4
+                p= groupReports[i].location 
+            div.col-sm-4 
+                p= groupReports[i].rating
+            div.col-sm-4
+                a.btn.btn-primary(href=reportURL) View 
+        - i++;

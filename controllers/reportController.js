@@ -1,7 +1,8 @@
 var Report = require('../models/report');
 var Group = require('../models/group');
 const {PythonShell} = require('python-shell');
-
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Types.ObjectId;
 
 
 exports.get_report = function(req, res, next) {
@@ -147,13 +148,20 @@ exports.makeReport = function(req, res) {
 			console.log('done');
 		}
 	});
-
-    //format the data for storing
-
-    //create a Date object for when the report was submitted
-   
-		
-		
-
 }
+
+exports.viewReport = function(req, res) {
 	
+	reportId = req.params.reportId;
+	
+	Report.findById(ObjectId(reportId), function(err, foundReport){
+		if(err){
+			console.log(err);
+			res.redirect('/');
+		}
+		else{
+			res.render('viewReport', { report: foundReport});
+		}
+	});
+}
+
