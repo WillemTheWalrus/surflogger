@@ -19,11 +19,16 @@ const LocalStrategy = require('passport-local').Strategy;
 var accountController = require('./controllers/accountController');
 var reportRouter = require('./routes/reports');
 
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
 
 app.use(session({
 	cookie: {maxAge: 60*60*1000},
