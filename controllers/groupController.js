@@ -160,20 +160,22 @@ exports.groupLogin = function(req,res,next) {
 			res.send(err);
 		}
 		else{
-			if(currentGroup.password == groupPass){
-				//add the group to the user's list of groups
-				Account.findOne({_id: req.user._id}, function(err, userAccount){
-					userAccount.groups.push(currentGroup);
-					userAccount.save(function(err){
-						if(err){
-							console.log(err);
-						}
-					});
-				});
+            if(currentGroup != null){
+                if(currentGroup.password == groupPass){
+                    //add the group to the user's list of groups
+                    Account.findOne({_id: req.user._id}, function(err, userAccount){
+                        userAccount.groups.push(currentGroup);
+                        userAccount.save(function(err){
+                            if(err){
+                                console.log(err);
+                            }
+                        });
+                    });
 
-				//redirect the user to the group home page
-				res.redirect('/groups/groupPage/'+groupName);
-			}
+				    //redirect the user to the group home page
+				    res.redirect('/groups/groupPage/'+groupName);
+                }
+            }
 			else{
 				res.send('incorrect password');
 			}

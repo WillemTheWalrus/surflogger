@@ -7,7 +7,7 @@ var passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'SurfLogger' });
+  res.render('index', { title: 'SurfReportBuddy' });
 });
 
 router.get('/err/:error', function(req, res, next) {

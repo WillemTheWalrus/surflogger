@@ -7,7 +7,7 @@ block links
 block content
     div.row
         h1 Make a report #{groupName}
-    - var postURL = '/reports/' + groupName;
+    - var postURL = '/reports/newReport/' + groupName;
     form(method='POST' action=postURL)
         div.row
             div#datetimepicker1.input-group.date
@@ -41,6 +41,11 @@ block content
                 option(value='jetty') Jetty
                 option(value='bunkers') Bunkers
                 option(value='harbor') Harbor Entrance
+                option(value='brownhouse') Brown House
+                option(value='centerville') Centerville
+                option(value='patrickspoint') Patricks Point
+                option(value='drylagoon') Dry Lagoon
+                option(value='freshwaterlagoon') Freshwater Lagoon
         div.row
             label(for='description') Description: 
             textarea#description(name="description", cols="30", rows="10")

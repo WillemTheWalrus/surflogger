@@ -1,7 +1,13 @@
 .searchGroup{
-	border: solid grey 2px;
+	border: solid grey 0.5px;
 	border-radius: 25px;
 	margin: 5vw;
-	padding: 1vw;
+	margin-left:0;
+    padding: 1vw;
+    box-shadow: 5px 10px #dde1e1;
+}
+
+.form-group{
+    margin-bottom: 0;
 }
 

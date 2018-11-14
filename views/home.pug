@@ -7,26 +7,50 @@ block links
 block content
 	div.row
 		h1 Welcome #{username}
-		
-	div.row
-		h2 Your Groups
 	
 	div.row.searchGroup
 		form(action='/groups/groupSearch' method='POST' name='groupSearchForm')
 			div.form-group
-				div.active-cyan-3.active-cyan-4.col-10
+				div.active-cyan-3.active-cyan-4.col-xs-10
 					input#searchBar.form-control(type='text' placeholder='Search for a Group' name='groupInput'   )
-				div.col-2
+				div.col-xs-2
 					input.btn.btn-primary(type='submit')
 	div.row
-		- var n = 0;
-		while n < groupNames.length
-			- var groupLink = '/groups/groupPage/'+ groupNames[n];
-			p.col-md-8= groupNames[n]
-			div.col-md-4
-				a.btn.btn-primary(href=groupLink role='button') Home Page
-			- n++;
+		h2 Your Groups
+	div.row
+		if groupNames
+			- var n = 0;
+			while n < groupNames.length
+				- var groupLink = '/groups/groupPage/'+ groupNames[n];
+				p.col-xs-8= groupNames[n]
+				div.col-xs-4
+					a.btn.btn-primary(href=groupLink role='button') Home Page
+				- n++;
+		else
+			p You are not in any groups
+			
 	div.row
 		a.btn.btn-primary(href='/createGroup') Create a Group
+
+	div.row 
+		h1 Your Reports
+
+	div.row
+		if reports
+			- var jsonSize = reports.length;
+			- var i = 0;
+			while i < jsonSize
+				- var reportURL = '/reports/singleReport/'+reports[jsonSize-i-1]._id;
+				div.row-fluid
+					div.col-xs-4
+						p= reports[jsonSize-i-1].location 
+					div.col-xs-4 
+						p= reports[jsonSize-i-1].rating
+					div.col-xs-4
+						a.btn.btn-primary(href=reportURL) View 
+				- i++;
+		else
+			p You have not made any reports yet
+			
 
 

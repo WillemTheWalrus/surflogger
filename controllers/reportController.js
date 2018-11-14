@@ -13,9 +13,7 @@ exports.makeReportPage = function(req, res){
 	res.render('newReport', {groupName: req.params.groupName});
 }
 
-exports.makeReport = function(req, res) {
-
-    
+exports.makeReport = function(req, res) {    
     
     var userTime = req.body.timein;
     /**
@@ -38,7 +36,6 @@ exports.makeReport = function(req, res) {
      * buoyData[14] = Mean Wave Direction
      */
     var buoyData;    
-    console.log(userTime);
 	var options = {
 			
 		scriptPath: '/home/admin/surflogger/python/',
@@ -56,9 +53,6 @@ exports.makeReport = function(req, res) {
         buoyData[i] = buoyData[i].replace(/[^0-9a-zA-Z.]/gi, '');
        
 	}
-
-        console.log(buoyData);
-	    console.log(buoyData[0]);
         var submissionDate = new Date();
         
     
@@ -72,13 +66,11 @@ exports.makeReport = function(req, res) {
         
         //convert from GWT zone to PST (Will still say it is in GWT though)
         reportDate.setHours(reportDate.getHours()-8);
-        console.log(reportDate);
         
         //convert the height and period data from meters to feet (parse periods to floats)
         var waveHeight = parseFloat(buoyData[5]);
         waveHeight = Math.round((waveHeight*3.28084)*100)/100;
     
-        console.log(waveHeight);
         var swellHeight = parseFloat(buoyData[6]);
         swellHeight = Math.round((swellHeight*3.28084)*100)/100;
     
@@ -97,7 +89,6 @@ exports.makeReport = function(req, res) {
             }
             else{
                 groupId = group._id;
-                console.log('groupid: '+groupId);
 
                 Report.create({
              
@@ -116,7 +107,8 @@ exports.makeReport = function(req, res) {
                     APD: parseFloat(buoyData[13]),
                     MWD: parseInt(buoyData[14]),
                     location: req.body.location,
-                    rating: req.body.rating
+					rating: req.body.rating,
+					description: req.body.description,
         
                 }, 
                 function(err, report){
@@ -128,7 +120,7 @@ exports.makeReport = function(req, res) {
                 }
                 });
                 
-            
+                
                 var redirectURL = '/groups/groupPage/'+ req.params.groupName;
                 res.redirect(redirectURL);
             }
@@ -154,7 +146,7 @@ exports.viewReport = function(req, res) {
 	
 	reportId = req.params.reportId;
 	
-	Report.findById(ObjectId(reportId), function(err, foundReport){
+	Report.findById(ObjectId(reportId)).populate('submittedBy', 'username').exec( function(err, foundReport){
 		if(err){
 			console.log(err);
 			res.redirect('/');

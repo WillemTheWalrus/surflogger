@@ -4,24 +4,11 @@ block links
     link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.1.0/css/all.css' integrity='sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt' crossorigin='anonymous')
     link(rel='stylesheet' href='/stylesheets/groupHome.css' type='text/css')
 
-block content
-    div.row
-        div.col-12.col-md-10.col-lg-8  
-            form.card.card-sm
-                div.card-body.row.no-gutters.align-items-center
-                    div.col-auto
-                        i.fas.fa-search.h4.text-body
-                    div.col
-                        input.form-control.form-control-lg.form-control-borderless(type='search' placeholder='Search for old reports')
-
-                    div.col-auto
-                        button.btn.btn-lg.btn-success(type='submit') Search 
+block content 
     div.row
         a.btn.btn-primary(href='/home') Back to Home	
     div.row
         h1= groupName 
-        p This page will display all contributed reports, a search mechanism for looking up previous reports, and a plus button for making a new report
-
     div.row
         div.col-md-1
             - var reportURL = '/reports/newReport/' + groupName;
@@ -31,12 +18,12 @@ block content
     - var i = 0;
     - var jsonSize = groupReports.length;
     while i < jsonSize
-        - var reportURL = '/reports/'+groupReports[i]._id;
+        - var reportURL = '/reports/singleReport/'+groupReports[jsonSize-i-1]._id;
         div.row-fluid
-            div.col-sm-4
-                p= groupReports[i].location 
-            div.col-sm-4 
-                p= groupReports[i].rating
-            div.col-sm-4
+            div.col-xs-4
+                p= groupReports[jsonSize-i-1].location 
+            div.col-xs-4 
+                p= groupReports[jsonSize-i-1].rating
+            div.col-xs-4
                 a.btn.btn-primary(href=reportURL) View 
         - i++;

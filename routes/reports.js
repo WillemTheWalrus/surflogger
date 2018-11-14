@@ -5,7 +5,7 @@ var reportController = require('../controllers/reportController');
 
 router.get('/newReport/:groupName', reportController.makeReportPage);
 router.post('/newReport/:groupName', reportController.makeReport);
-router.get('/:reportId', reportController.viewReport);
+router.get('/singleReport/:reportId', reportController.viewReport);
 
 module.exports = router;
 

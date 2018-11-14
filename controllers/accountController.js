@@ -1,11 +1,8 @@
 var Account = require('../models/account');
-var db = require('../config/dbconnect');
-var session = require('express-session');
-var Group = require('../models/group');
-const {body, validationResult} = require('express-validator/check');
-const { sanitizeBody } = require('express-validator');
-const passport = require('passport');
+var Report = require('../models/report');
 const LocalStrategy = require('passport-local').Strategy;
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 
 //login using the passport middleware
@@ -36,7 +33,7 @@ exports.render_home = function(req,res,next) {
 		else{
 			//If the user is not a part of any groups, display a message	
 			if(account.groups.length < 1){
-				res.render('home', {username: req.user.username, groupNames: ['You are not in any groups yet' ] });
+				res.render('home', {username: req.user.username, groupNames: false });
 			}
 			//If the user is a part of groups, show them
 			else{
@@ -50,12 +47,30 @@ exports.render_home = function(req,res,next) {
 							res.send(err);
 						}
 						else{
+
 							var groupnames = [];
+							//get the names of all the groups to display on the home page
+								
 							var i;
 							for(i = 0; i < result.groups.length; i++){
 								groupnames[i] = result.groups[i].name;
 							}
-							res.render('home', {username: req.user.username, groupNames: groupnames});
+							
+							Report.find({submittedBy: ObjectId(account._id) } , function(err, foundReports){
+								if(err){
+									res.send(err);
+								}
+								else{
+									console.log(foundReports.length);
+									if(foundReports.length < 1){
+										res.render('home', {username: req.user.username, groupNames: groupnames, reports: false});
+									}
+									else{
+										res.render('home', {username: req.user.username, groupNames: groupnames, reports: foundReports});
+									}
+								}
+							});
+							
 						}
 					});
 
