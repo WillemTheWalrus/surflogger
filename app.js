@@ -18,7 +18,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 var accountController = require('./controllers/accountController');
 var reportRouter = require('./routes/reports');
-
+var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -68,6 +68,8 @@ passport.use(accountController.passport_login);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+//redirect all routes to https
+app.use(redirectToHTTPS());
 
 app.use('/', indexRouter);
 app.use('/groups' , groupRouter);
@@ -87,5 +89,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;

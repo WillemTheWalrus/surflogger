@@ -5,10 +5,17 @@ block content
         div.col
             h1 Report
             p Submitted By: #{report.submittedBy.username}
+            p Rating: #{report.rating}
             p location: #{report.location}	
             p Report Date: #{report.buoyReportDate}
-            p Wave Height: #{report.WVHT}
-            p Swell Height: #{report.SwH}
-            p Swell period: #{report.SwP}
+            p Wave Height: #{report.WVHT} ft
+            p Swell Height: #{report.SwH} ft
+            p Swell period: #{report.SwP} sec
+            p Swell Direction: #{report.SwD} deg
+            p Wind Wave Height: #{report.WWH} ft
+            p Wind Wave Period: #{report.WWP} sec
+            p Wind Wave Direction: #{report.WWD} deg
+            p Wind Direction: #{report.WDIR} deg
+            p Wind Speed: #{report.WSPD} knots
+            p Wind Gusts: #{report.GST} knots
             p Description: #{report.description}
-
