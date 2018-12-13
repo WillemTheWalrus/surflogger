@@ -11,4 +11,11 @@ form{
 	border-radius: 25px;
 }
 
+row{
+	padding:5vw;
+}
+
+login-panel{
+	margin:auto;
+}
 

@@ -1,53 +1,57 @@
 extends layout
 
 block links
-    script(type='text/javascript' src='/javascripts/moment.js')
-    script(type='text/javascript' src='/javascripts/bootstrap-datetimepicker.min.js')
+	script(type='text/javascript' src='/javascripts/moment.js')
+	script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js")
+	link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css")
 
 block content
-    div.row
-        h1 Make a report #{groupName}
-    - var postURL = '/reports/newReport/' + groupName;
-    form(method='POST' action=postURL)
-        div.row
-            div#datetimepicker1.input-group.date
-                label(for='timeinput') What time did you surf at?
-                input.form-control(type='text' name='timein')
-                span.input-group-addon
-                    span.glyphicon.glyphicon-calendar
-            script(type='text/javascript').
-                $(function () {
-                    $('#datetimepicker1').datetimepicker();
-                });
-            label(for='rating') How good was it?
-            select#rating(name='rating')
-                option(value='Firing') Firing
-                option(value='Good') Good
-                option(value='Decent') Decent
-                option(value='Mediocre') Mediocre
-                option(value='Bad') Bad
-                option(value='Shit') Absolute Shit
-        div.row
-            label(for='location') Where did you go?
-            select#location(name='location')
-                option(value='moonstone') Shitstone
-                option(value='camelrock') Camel Rock
-                option(value='statebeach') State Beach
-                option(value='dogshits') Dogshits
-                option(value='powerpoles') Powerpoles
-                option(value='fences') Fences
-                option(value='tanks') Tanks
-                option(value='baystreet') Bay Street
-                option(value='jetty') Jetty
-                option(value='bunkers') Bunkers
-                option(value='harbor') Harbor Entrance
-                option(value='brownhouse') Brown House
-                option(value='centerville') Centerville
-                option(value='patrickspoint') Patricks Point
-                option(value='drylagoon') Dry Lagoon
-                option(value='freshwaterlagoon') Freshwater Lagoon
-        div.row
-            label(for='description') Description: 
-            textarea#description(name="description", cols="30", rows="10")
-        div.row
-            input(type='submit')
+	div.container
+		div.row
+			h1 Make a report for #{groupName}
+		- var postURL = '/reports/newReport/' + groupName;
+		form(method='POST' action=postURL)
+			div.row
+				div.col-sm-6
+					div#datetimepicker1.input-group.date(data-target-input='nearest')
+						label(for='timeinput') What time did you surf at?
+						input.form-control.datetimepicker-input(type='text' name='timein' data-target='#datetimepicker1')
+						div.input-group-append(data-target='#datetimepicker1' data-toggle='datetimepicker')
+							div.input-group-text
+								i.fa.fa-calendar
+					script(type='text/javascript').
+						$(function () {
+							$('#datetimepicker1').datetimepicker();
+						});
+					label(for='rating') How good was it?
+					select#rating(name='rating')
+						option(value='Firing') Firing
+						option(value='Good') Good
+						option(value='Decent') Decent
+						option(value='Mediocre') Mediocre
+						option(value='Bad') Bad
+						option(value='Shit') Absolute Shit
+			div.row
+				label(for='location') Where did you go?
+				select#location(name='location')
+					option(value='moonstone') Shitstone
+					option(value='camelrock') Camel Rock
+					option(value='statebeach') State Beach
+					option(value='dogshits') Dogshits
+					option(value='powerpoles') Powerpoles
+					option(value='fences') Fences
+					option(value='tanks') Tanks
+					option(value='baystreet') Bay Street
+					option(value='jetty') Jetty
+					option(value='bunkers') Bunkers
+					option(value='harbor') Harbor Entrance
+					option(value='brownhouse') Brown House
+					option(value='centerville') Centerville
+					option(value='patrickspoint') Patricks Point
+					option(value='drylagoon') Dry Lagoon
+					option(value='freshwaterlagoon') Freshwater Lagoon
+			div.row
+				label(for='description') Description: 
+				textarea#description(name="description", cols="30", rows="10")
+			div.row
+				input(type='submit')

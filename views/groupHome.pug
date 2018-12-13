@@ -1,29 +1,30 @@
 extends layout
 block links
 
-    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.1.0/css/all.css' integrity='sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt' crossorigin='anonymous')
-    link(rel='stylesheet' href='/stylesheets/groupHome.css' type='text/css')
+	link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.1.0/css/all.css' integrity='sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt' crossorigin='anonymous')
+	link(rel='stylesheet' href='/stylesheets/groupHome.css' type='text/css')
 
 block content 
-    div.row
-        a.btn.btn-primary(href='/home') Back to Home	
-    div.row
-        h1= groupName 
-    div.row
-        div.col-md-1
-            - var reportURL = '/reports/newReport/' + groupName;
-            div#plusSvg
-                a(href=reportURL)
-                    img(src='/images/icon-plus-circled-gray.svg')
-    - var i = 0;
-    - var jsonSize = groupReports.length;
-    while i < jsonSize
-        - var reportURL = '/reports/singleReport/'+groupReports[jsonSize-i-1]._id;
-        div.row-fluid
-            div.col-xs-4
-                p= groupReports[jsonSize-i-1].location 
-            div.col-xs-4 
-                p= groupReports[jsonSize-i-1].rating
-            div.col-xs-4
-                a.btn.btn-primary(href=reportURL) View 
-        - i++;
+	div.container
+		div.row
+			a.btn.btn-primary(href='/home') Back to Home	
+		div.row
+			h1= groupName 
+		div.row
+			div.col-md-1
+				- var reportURL = '/reports/newReport/' + groupName;
+				div#plusSvg
+					a(href=reportURL)
+						img(src='/images/icon-plus-circled-gray.svg')
+		- var i = 0;
+		- var jsonSize = groupReports.length;
+		while i < jsonSize
+			- var reportURL = '/reports/singleReport/'+groupReports[jsonSize-i-1]._id;
+			div.row
+				div.col
+					p= groupReports[jsonSize-i-1].location 
+				div.col 
+					p= groupReports[jsonSize-i-1].rating
+				div.col
+					a.btn.btn-primary(href=reportURL) View 
+			- i++;

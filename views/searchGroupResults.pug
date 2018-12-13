@@ -1,17 +1,18 @@
 extends layout
 
 block content
-	div.row
-		h1 Group Search Results
-		p This is where users will be able to join and find groups
-		
-	- var n = 0;
-	while n < results.length
-		-var href = '/groups/groupPage/' + results[n].name;
-		p.col-md-6= results[n].name
-		a.col-md-6(href=href ) 
-			button.btn Go to group page
-		- n++;
-		
-				
-		
+	div.container
+		div.row
+			h1 Group Search Results
+			p This is where users will be able to join and find groups
+			
+		- var n = 0;
+		while n < results.length
+			-var href = '/groups/groupPage/' + results[n].name;
+			p.col-md-6= results[n].name
+			a.col-md-6(href=href ) 
+				button.btn Go to group page
+			- n++;
+			
+					
+			

@@ -4,17 +4,18 @@ block links
 	script(src='/javascripts/createValidate.js')
 
 block content
-	div.row
-		h1 Create an account
-		form(action='/createAccount' method='POST' name='createForm' onsubmit='return validateForm()' )
-			div.form-group
-				label(for='username') Username:
-				input#username(type='text' name='username')
-			div.form-group
-				label(for='password') Password:
-				input#password(type='password' name='password')
-			div.form-group
-				label(for='passwordretype') Retype password
-				input#passwordretype(type='password' name='passwordretype')
-			input.btn.btn-primary(type='submit')
+	div.container
+		div.row
+			h1 Create an account
+			form(action='/createAccount' method='POST' name='createForm' onsubmit='return validateForm()' )
+				div.form-group
+					label(for='username') Username:
+					input#username(type='text' name='username')
+				div.form-group
+					label(for='password') Password:
+					input#password(type='password' name='password')
+				div.form-group
+					label(for='passwordretype') Retype password
+					input#passwordretype(type='password' name='passwordretype')
+				input.btn.btn-primary(type='submit')
 
